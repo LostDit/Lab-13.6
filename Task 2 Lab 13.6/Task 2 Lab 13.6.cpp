@@ -3,25 +3,49 @@
 #include <vector>
 
 int main() {
-	//Задал вектор цен на продукты
-	std::vector<float> prices{ 2.5, 4.25, 3.0, 10.0 };
-	//Задал вектор покупок
-	std::vector<int> items{ 1, 1, 0, 3 };
+    setlocale(LC_ALL, "Russian");
 
-	//Переменная итоговой стоимости
-	float totalCost = 0.0;
-	
-	//По совету делаю один цикл для вычисления общей стоимости
-	for (int index : items) {
-		if (index>=0&&index<prices.size()) {
-			totalCost += prices[index];
-		}else {
-			std::cerr << "Ошибка: индекс " << index << " выходит за границы вектора цен.\n";
-			return 1;
-		}
-	}
+    // Ввод количества товаров
+    int productCount;
+    std::cout << "Введите количество товаров: ";
+    std::cin >> productCount;
 
-	std::cout << "Итоговая стоимость покупок: " << totalCost << std::endl;
+    // Ввод цен на товары
+    std::vector<float> prices(productCount);
+    std::cout << "Введите цены на товары (через пробел): ";
+    for (int i = 0; i < productCount; ++i) {
+        std::cin >> prices[i];
+    }
 
-	return 0;
+    // Ввод количества покупок
+    int purchaseCount;
+    std::cout << "Введите количество покупок: ";
+    std::cin >> purchaseCount;
+
+    // Ввод индексов покупок
+    std::vector<int> items(purchaseCount);
+    std::cout << "Введите индексы покупок (через пробел): ";
+    for (int i = 0; i < purchaseCount; ++i) {
+        std::cin >> items[i];
+    }
+
+    // Переменная для итоговой стоимости покупок
+    float totalCost = 0.0;
+
+    // Расчет итоговой стоимости
+    for (int index : items) {
+        // Проверка на корректность индекса
+        if (index >= 0 && index < prices.size()) {
+            totalCost += prices[index];
+        }
+        else {
+            std::cerr << "Ошибка: индекс " << index << " выходит за границы вектора цен.\n";
+            return 1; // Завершаем выполнение программы при ошибке
+        }
+    }
+
+    // Вывод результата
+    std::cout << "Итоговая стоимость покупок: " << totalCost << std::endl;
+
+    return 0; // Успешное завершение программы
 }
